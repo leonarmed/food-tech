@@ -49,3 +49,32 @@ def login():
         "success": True,
         "data": {"token": access_token}
     }), 200
+
+@api.route('/user', methods = ["GET", 'POST'])
+@jwt_required()
+def get_data_user():
+    if request.method == "GET":
+        user_id = get_jwt_identity()
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({
+                "message": "Error getting user info",
+                "success": False
+            }), 404
+        return jsonify({
+            "data": user.serialize()
+        }), 200
+    if request.method == "POST":
+        user_id = get_jwt_identity()
+        body = request.json
+        user_updated = User.update_user(body, user_id)
+        if not isinstance(user_updated, User):
+            return jsonify({
+                "message": user_updated["message"],
+                "success": False
+            }), user_updated["status"]
+        return jsonify({
+            "success": True,
+            "message": "User updated successfully",
+            "data": user_updated.serialize()
+        }), 200
