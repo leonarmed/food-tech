@@ -5,9 +5,10 @@ set -o errexit
 # npm install
 # npm run build
 
-pipenv shell
 
 pipenv install
+
+pip install importlib-metadata
 
 pipenv run init
 
