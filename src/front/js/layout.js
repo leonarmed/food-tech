@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { ToastContainer } from "react-toastify";
 
-// import { Home } from "./pages/home";
+import { Home } from "./pages/home";
 // import { Demo } from "./pages/demo";
 // import { Single } from "./pages/single";
 import Login from "./pages/Login/Login";
@@ -39,7 +39,7 @@ const Layout = () => {
           {window.location.pathname != "/" && <Navbar />}
           <Routes>
             <Route index element={<Login />} />
-            {/* <Route element={<Home />} path="/" /> */}
+            <Route element={<Home />} path="/" />
             {/* <Route element={<Demo />} path="/demo" />
             <Route element={<Single />} path="/single/:theid" /> */}
             <Route element={<h1>Not found!</h1>} />
