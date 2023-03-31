@@ -75,10 +75,12 @@
     ]
   },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@hookform/resolvers": "^2.9.10",
-    "@mui/material": "^5.11.7",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.11.14",
+    "@mui/styled-engine-sc": "^5.11.11",
     "is-empty": "^1.2.0",
     "mini-css-extract-plugin": "^2.7.2",
     "prop-types": "^15.6.1",
@@ -88,6 +90,7 @@
     "react-polyfills": "0.0.1",
     "react-router-dom": "^6.3.0",
     "react-toastify": "^9.1.1",
+    "styled-components": "^5.3.9",
     "yup": "^0.32.11"
   }
 }

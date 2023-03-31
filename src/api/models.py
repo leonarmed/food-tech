@@ -132,9 +132,9 @@ class User(db.Model):
             "is_active": self.is_active,
         }
 
-class Registers(db.Model):
+class Orders(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    id_sensor = db.Column(db.String(120), nullable=False)
+    detail = db.Column(db.String(120), nullable=False)
     temp = db.Column(db.String(120), nullable=False)
     hum = db.Column(db.String(120), unique=True, nullable=False)
     created_at = db.Column(db.DateTime(timezone=True),  default=func.now())

@@ -1,0 +1,38 @@
+.orders-container {
+  .MuiGrid-root {
+    .order-details {
+      background-color: white;
+      height: calc(100% - 105px - 15px - 10px);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 15px;
+      .MuiPaper-root {
+        padding: 10px;
+      }
+
+      .orders {
+        border-radius: 20px;
+        height: 0px;
+        padding: 0;
+        height: 50px;
+        margin: 15px 0 15px 0;
+
+        .MuiGrid-container {
+          display: flex;
+          justify-content: space-between;
+          padding: 0 20px;
+
+          .status {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+
+    .advertisements {
+      height: 100%;
+      border-radius: 10px;
+      padding: 10px;
+    }
+  }
+}

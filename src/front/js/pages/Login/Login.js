@@ -37,7 +37,7 @@ function Login() {
                 item
                 sm={12}
                 md={6}
-                sx={{ display: { xs: "none", md: "flex" } }}
+                sx={{ display: 'flex' }}
                 className="image-login"
               >
                 <img
