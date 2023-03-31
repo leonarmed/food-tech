@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Products
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
@@ -78,3 +78,19 @@ def get_data_user():
             "message": "User updated successfully",
             "data": user_updated.serialize()
         }), 200
+
+@api.route('/product', methods = ['POST'])
+def create_product():
+    body = request.json
+    new_product = Products.create(body)
+    if not isinstance(new_product, Products):
+        return jsonify({
+            "message": new_product["message"],
+            "success": False
+        }), new_product["status"]
+    products = Products.query.filter_by(barcode=new_product.barcode).one_or_none()
+    return jsonify({
+        "success": True,
+        "message": "Products created successfully",
+        "data": products.serialize()
+    }), 201

@@ -73,6 +73,8 @@ dist/*
 
 # backend stuff
 .venv
+.env.example
+.env
 database.database
 database.db
 diagram.png
