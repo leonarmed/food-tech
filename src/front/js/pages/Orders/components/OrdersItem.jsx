@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Grid, Paper } from "@mui/material";
 
 const orders = [
-  { id: 1, state: "Orden lista" },
+  { id: 1, state: "Pedido listo" },
   { id: 2, state: "En preparación" },
   { id: 80, state: "En preparación" },
 ];
