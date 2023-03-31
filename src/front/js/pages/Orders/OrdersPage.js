@@ -1,22 +1,37 @@
 import React, { useContext } from "react";
 import { Context } from "../../store/appContext";
-import {
-  Container,
-  Box,
-  Paper,
-  Typography,
-  Grid,
-  Divider,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-} from "@mui/material";
+import { Container, Box, Paper, Grid } from "@mui/material";
 import logo from "../../../img/AvilaNikkei.png";
 import OrdersItem from "./components/OrdersItem.jsx";
 import bg from "../../../img/BG.png";
-import plato from "../../../img/1.png";
-import { Star as StarIcon } from "@mui/icons-material";
+import Menus from "./components/Menus.jsx";
+
+const products = [
+  {
+    name: "Yakisoba Especial",
+    price: "65.000",
+    ingredients: ["Carne", "Pollo", "Camarones", "Locote", "Cebolla"],
+    picture: "",
+  },
+  {
+    name: "Patacon",
+    price: "45.000",
+    ingredients: [
+      "Banana para fritar",
+      "Ketchup",
+      "Mayonesa",
+      "Queso rayado",
+      "Ensalada mixta",
+    ],
+    picture: "",
+  },
+  {
+    name: "Sushi",
+    price: "55.000",
+    ingredients: ["Salmon", "Aguacate", "Platano", "Picante", "Queso crema"],
+    picture: "",
+  },
+];
 
 export const OrdersPage = () => {
   const { store, actions } = useContext(Context);
@@ -62,61 +77,7 @@ export const OrdersPage = () => {
               justifyContent: "space-between",
             }}
           >
-            <Box
-              sx={{
-                backgroundColor: "#ffffffc4",
-                padding: "20px",
-                borderRadius: "10px",
-              }}
-            >
-              <Box
-                display="flex"
-                justifyContent="space-around"
-                alignItems="baseline"
-              >
-                <Typography variant="h4">Yakisoba Especial</Typography>
-                <Box display="flex" alignItems="baseline">
-                  <Typography variant="h3">65.000</Typography>
-                  <Typography variant="h5">Gs</Typography>
-                </Box>
-              </Box>
-              <Divider style={{ height: "2px", borderRadius: "10px" }} />
-              <List
-                sx={{
-                  width: "100%",
-                  maxWidth: 360,
-                }}
-                aria-label="ingredients"
-              >
-                <ListItem disablePadding>
-                  <ListItemIcon>
-                    <StarIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Test 1" />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemIcon>
-                    <StarIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Test 2" />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemIcon>
-                    <StarIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Test 3" />
-                </ListItem>
-                <ListItem disablePadding>
-                  <ListItemIcon>
-                    <StarIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Test 4" />
-                </ListItem>
-              </List>
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <img src={plato} alt="Combo" />
-            </Box>
+            <Menus products={products} />
           </Paper>
         </Grid>
       </Grid>
