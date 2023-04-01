@@ -1,0 +1,21 @@
+body {
+  background-color: #202124;
+}
+
+.MuiContainer-root {
+  &.MuiContainer-maxWidthFixed {
+    height: calc(100vh - 45px);
+    padding: 0;
+
+    .navbar {
+      height: 55px;
+      // padding: 24px;
+    }
+
+    .footer {
+      height: 45px;
+      padding: 10px 0 10px 0;
+      color: white;
+    }
+  }
+}
