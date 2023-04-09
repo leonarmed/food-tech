@@ -234,3 +234,92 @@ class Products(db.Model):
             "updated_at": self.updated_at,
             "is_active": self.is_active,
         }
+
+class Orders(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ticket= db.Column(db.String(120), unique=True, nullable=False)
+    created_at = db.Column(db.DateTime(timezone=True),  default=func.now())
+    updated_at = db.Column(db.DateTime(timezone=True),  onupdate=func.now())
+    status = db.Column(db.String(50), nullable=False)
+
+    @classmethod
+    def create(cls, body):
+        try:
+            order_is_valid = cls.order_exist(ticket=body.get("ticket"))
+            if isinstance(order_is_valid, cls):
+                raise Exception({
+                    "message": "Invalid order",
+                    "status": 400
+                })
+            if(order_is_valid) != False:
+                raise Exception({
+                    "message": "Internal application error",
+                    "status": 500
+                })
+            
+            new_order = cls(ticket=body["ticket"], status=body["status"])
+            print(" ")
+            print(" ")
+            print(new_order)
+            print(" ")
+            print(" ")
+            if not isinstance(new_order, cls):
+                raise Exception({
+                    "message": "Internal application error",
+                    "status": 500
+                })
+            saved = new_order.save_and_commit()
+            if not saved:
+                raise Exception({
+                    "message": "Database error",
+                    "status": 500
+                })
+            return new_order
+        except Exception as error:
+            return error.args[0]
+
+    @classmethod
+    def order_exist(cls, **kwargs):
+        try:
+            order_exist = cls.query.filter_by(ticket=kwargs["ticket"]).one_or_none()
+            if order_exist:
+                order = cls(id=order_exist.id ,ticket=order_exist.ticket, status=order_exist.status, created_at=order_exist.created_at, updated_at=order_exist.updated_at)
+                return order
+            return False
+        except Exception as error:
+            return error.args[0]
+
+    @classmethod
+    def update_order(cls, body, ticket):
+        try:
+            order = cls.query.get(ticket)
+            if body.get("ticket"):
+                order.ticket = body["ticket"]
+            if body.get("status"):
+                order.status = body["status"]
+            db.session.commit()
+            return order
+        except Exception as error:
+            return error.args[0]
+
+    def save_and_commit(self):
+        """
+            Salva la instancia creada, en la base de datos. Si sucede algún error, 
+            se retorna False y se revierten los cambios de la sesión
+        """
+        try:
+            db.session.add(self)  #Guardamos la instancia en la sessión
+            db.session.commit() #Creamos el registro en la db 
+            return True
+        except Exception as error:
+            db.session.rollback() #Retornamos a la session mas reciente
+            return False
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "ticket": self.ticket,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "status": self.status,
+        }

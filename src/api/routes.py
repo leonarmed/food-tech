@@ -94,3 +94,19 @@ def create_product():
         "message": "Products created successfully",
         "data": products.serialize()
     }), 201
+
+@api.route('/order', methods = ['POST'])
+def create_order():
+    body = request.json
+    new_order = Orders.create(body)
+    if not isinstance(new_order, Orders):
+        return jsonify({
+            "message": new_order["message"],
+            "success": False
+        }), new_order["status"]
+    orders = Orders.query.filter_by(ticket=new_order.ticket).one_or_none()
+    return jsonify({
+        "success": True,
+        "message": "Orders created successfully",
+        "data": orders.serialize()
+    }), 201

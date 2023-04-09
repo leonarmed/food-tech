@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 
 const year = new Date().getFullYear();
 
-export const Footer = () => (
+const Footer = () => (
   <footer className="footer mt-auto text-center">
     <Typography variant="caption">
       © {year}{" "}
@@ -14,3 +14,5 @@ export const Footer = () => (
     </Typography>
   </footer>
 );
+
+export default Footer;
