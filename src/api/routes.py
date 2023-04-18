@@ -113,4 +113,4 @@ def create_order():
 
 @api.route('success', methods = ['POST'])
 def show_success_test():
-    return jsonify({"status": 'success'})
+    return jsonify({"status": 'success'}), 200
