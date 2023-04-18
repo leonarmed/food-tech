@@ -31,7 +31,8 @@ export default function LoginForm() {
             Iniciar Sesión
           </Typography>
           <Typography variant="caption" align="left">
-            Portal para el control de temperatura
+            Portal para la administración y automatización de procesos en el
+            sector gastronómico.
           </Typography>
         </Grid>
         <Grid item xs={12}>
