@@ -94,3 +94,7 @@ def create_product():
         "message": "Products created successfully",
         "data": products.serialize()
     }), 201
+
+@api.route('success', methods = ['POST'])
+def show_success_test():
+    return jsonify({"status": 'success'})
