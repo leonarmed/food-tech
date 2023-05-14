@@ -8,7 +8,7 @@ from flask_jwt_extended import JWTManager
 def setup_admin(app):
     app.secret_key = os.environ.get('FLASK_APP_KEY', 'sample key')
     app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-    admin = Admin(app, name='4Geeks Admin', template_mode='bootstrap3')
+    admin = Admin(app, name='SISPYCOM', template_mode='bootstrap3')
     app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY')
     jwt = JWTManager(app)
     

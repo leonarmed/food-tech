@@ -1,27 +1,22 @@
 {
-  "name": "react-hello-webapp",
+  "name": "foodtech-sispycom",
   "engines": {
     "node": "16.x"
   },
   "version": "1.0.1",
-  "description": "",
+  "description": "Software to manage your business",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js --port 3000",
     "build": "webpack --config webpack.prod.js"
   },
   "author": {
-    "name": "Alejandro Sanchez",
-    "url": "http://alesanchezr.com/"
+    "name": "Leonardo Medina",
+    "url": "https://sispycom.com"
   },
   "contributors": [
     {
-      "name": "Alejandro Sanchez",
-      "url": "http://alesanchezr.com/"
-    },
-    {
-      "name": "Ignacio Cordoba",
-      "url": "http://github.com/nachovz"
+      "name": "Jorge Ramirez"
     }
   ],
   "license": "ISC",
