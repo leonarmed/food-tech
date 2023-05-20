@@ -5,6 +5,8 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Products
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+import urllib.request
+import json
 
 api = Blueprint('api', __name__)
 
@@ -79,21 +81,59 @@ def get_data_user():
             "data": user_updated.serialize()
         }), 200
 
-@api.route('/product', methods = ['POST'])
+@api.route('/product', methods = ['POST', 'GET'])
 def create_product():
-    body = request.json
-    new_product = Products.create(body)
-    if not isinstance(new_product, Products):
+    if request.method == "POST":
+        body = request.json
+        new_product = Products.create(body)
+        if not isinstance(new_product, Products):
+            return jsonify({
+                "message": new_product["message"],
+                "success": False
+            }), new_product["status"]
+        products = Products.query.filter_by(barcode=new_product.barcode).one_or_none()
         return jsonify({
-            "message": new_product["message"],
-            "success": False
-        }), new_product["status"]
-    products = Products.query.filter_by(barcode=new_product.barcode).one_or_none()
-    return jsonify({
-        "success": True,
-        "message": "Products created successfully",
-        "data": products.serialize()
-    }), 201
+            "success": True,
+            "message": "Products created successfully",
+            "data": products.serialize()
+        }), 201
+    if request.method == "GET":
+        api_url = 'https://erp2.sispycom.com/api/index.php/products?sortfield=t.ref&sortorder=ASC&limit=1'
+        headers = {
+        'DOLAPIKEY': '.1n1c102023.',  
+        }
+        try:
+            req = urllib.request.Request(api_url, headers=headers)
+            with urllib.request.urlopen(req) as response:
+                data = json.loads(response.read().decode())
+            products = Products.query.all()
+            if products:
+                products_dic = list(map(lambda product: product.serialize(), products))
+                return jsonify(products_dic),200
+            return jsonify({}), 404
+        except:
+            return({
+                "message": "Internal Error"
+            }), 500
+
+        print('')
+        print(products_dic)
+        print(data)
+        print('')
+        # ref
+        # label
+        # price_ttc
+        # description
+        # response = requests.get(api_url)
+        # data = response.json()
+        # print('')
+        # print(response)
+        # print('')
+        return jsonify({
+            "success": True,
+            "message": "Get Products successfully",
+            "data": data
+        }), 200
 
 @api.route('/order', methods = ['POST'])
 def create_order():
